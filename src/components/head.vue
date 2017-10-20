@@ -13,7 +13,7 @@
         </li>
         <li>
           <router-link to="service">服务支持</router-link>
-          <div class="nav_hover nav_hover_bg fr hide">
+          <div class="nav_hover nav_hover_bg fr" v-show="isActive">
             <div class="container_position">
               <ul class="nav_ul_1 fr">
                 <li><router-link to="service">产品购买</router-link></li>
@@ -25,7 +25,7 @@
         </li>
         <li>
           <router-link to="scenarios">商务合作</router-link>
-          <div class="nav_hover nav_hover_bg fr hide">
+          <div class="nav_hover nav_hover_bg fr" v-show="isActive">
             <div class="container_position">
               <ul class="nav_ul_2 fr">
                 <li><router-link to="scenarios">市场前景</router-link></li>
@@ -46,11 +46,13 @@
 </template>
 
 <script>
-//    model.exprots = {
-//        data() {
-//
-//        }
-//    }
+    export default {
+        data() {
+          return {
+            isActive : true
+          }
+        }
+    }
 </script>
 
 <style scoped>
