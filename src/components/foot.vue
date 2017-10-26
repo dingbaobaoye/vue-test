@@ -66,11 +66,7 @@
 </template>
 
 <script>
-//    model.exprots = {
-//        data() {
-//
-//        }
-//    }
+
 </script>
 
 <style scoped>

@@ -5,25 +5,21 @@
         <img src="../assets/img/01-index-01.png" alt="" width="180">
       </div>
       <ul class="nav clearfix fr">
-        <li class="active">
-          <router-link to="index">首页</router-link>
-        </li>
-        <li>
-          <router-link to="bracelet">北蓝手环</router-link>
-        </li>
-        <li>
-          <router-link to="service">服务支持</router-link>
-          <head-nav></head-nav>
-        </li>
-        <li>
-          <router-link to="scenarios">商务合作</router-link>
-          <head-nav></head-nav>
-        </li>
-        <li>
-          <router-link to="brand">智慧嘉孚</router-link>
-        </li>
-        <li>
-          <router-link to="app">APP下载</router-link>
+        <li v-for="item in items" v-bind:class="{ active : item.active }" @click="click(item)" @mouseenter="show(item)" @mouseleave="hidden(item)">
+          <router-link v-bind:to="item.url">{{item.text}}</router-link>
+          <div class="nav_hover nav_hover_bg fr" v-if="item.select" v-show="item.isHover">
+            <div class="container_position">
+              <ul v-show="item.isFirst" class="nav_ul_1 fr">
+                <li><router-link to="service">产品购买</router-link></li>
+                <li><router-link to="service">技术支持</router-link></li>
+                <li><router-link to="service">维修服务</router-link></li>
+              </ul>
+              <ul v-show="!item.isFirst" class="nav_ul_2 fr">
+                <li><router-link to="scenarios">市场前景</router-link></li>
+                <li><router-link to="scenarios">联系我们</router-link></li>
+              </ul>
+            </div>
+          </div>
         </li>
       </ul>
     </div>
@@ -32,11 +28,67 @@
 
 <script>
   import Vue from 'vue';
-  import headNav from '../components/head_nav';
   export default {
     name: 'head',
-    components: {
-      headNav
+    data () {
+      return {
+        items: [
+          {
+            text: '首页',
+            url: '/',
+            select: false,
+            active: true
+          },{
+            text: '北蓝手环',
+            url: '/bracelet',
+            select: false,
+            active: false
+          },{
+            text: '服务支持',
+            url: '/service',
+            select: true,
+            active: false,
+            isFirst: true,
+            isHover: false
+          },{
+            text: '商务合作',
+            url: '/scenarios',
+            select: true,
+            active: false,
+            isFirst: false,
+            isHover: false
+          },{
+            text: '智慧嘉孚',
+            url: '/brand',
+            select: false,
+            active: false
+          },{
+            text: 'APP下载',
+            url: '/app',
+            select: false,
+            active: false
+          }
+        ]
+      }
+    },
+    methods: {
+      show (item) {
+        this.items.forEach(function(li){
+          li.isHover = false;
+        })
+        item.isHover = true;
+      },
+      hidden (item) {
+        this.items.forEach(function(li){
+          li.isHover = false;
+        })
+      },
+      click (item) {
+        this.items.forEach(function(item){
+          item.active = false;
+        })
+        item.active = true;
+      }
     }
   }
 
@@ -52,4 +104,12 @@
   .nav>li a:hover{color:#0080db;}
   .nav>li.active>a{color:#0080db;}
 
+  .nav_hover_bg {height: 50px;background: rgba(255,255,255,0.8);position: absolute;width: 100%;left: 0;z-index: 1;}
+  .container_position {position: relative;width: 1280px;margin: 0 auto;}
+  .nav_ul_1 {position: absolute;z-index: 99;top: 0;right: 335px;}
+  .nav_ul_2 {position: absolute;z-index: 99;top: 0;right: 245px;}
+  .nav_hover ul li {float: left;height: 50px;line-height: 50px;font-size: 15px;width: 85px;text-align: center;}
+  .nav_hover ul li a{font-size:13px;}
+  .nav>li a:hover{color:#0080db;}
+  .nav>li.active>a{color:#0080db;}
 </style>
